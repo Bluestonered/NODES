@@ -99,3 +99,31 @@ function getlaureat()
 
   return laureats;
 }
+
+function getlaureatnumber(){
+  console.log("M")
+  const dataBuffer = fs.readFileSync('prize.json');
+  const dataJSON = JSON.parse(dataBuffer.toString()).prizes
+
+  const laureatsNumber = [];
+
+  dataJSON.forEach((prize) =>{
+    let count = 0;
+    prize.laureates?.forEach((laureat) => {
+      count++;
+    });
+    if (!laureatsNumber.find((p) => p.year === prize.year)){
+      laureatsNumber.push({
+      year: prize.year,
+      number: count
+      });
+    }else{
+      laureatsNumber.find((p) => p.year === prize.year ).number+=count
+    }
+  });
+  return laureatsNumber;
+}
+
+exports.findNumber = (req, res) => {
+  res.send(getlaureatnumber())
+}
