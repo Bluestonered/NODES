@@ -100,7 +100,7 @@ function getlaureat()
   return laureats;
 }
 
-function getlaureatnumber(){
+function getLaureatesYearCount(){
   console.log("M")
   const dataBuffer = fs.readFileSync('prize.json');
   const dataJSON = JSON.parse(dataBuffer.toString()).prizes
@@ -124,6 +124,6 @@ function getlaureatnumber(){
   return laureatsNumber;
 }
 
-exports.findNumber = (req, res) => {
-  res.send(getlaureatnumber())
+exports.findYear = (req, res) => {
+  res.send(getLaureatesYearCount())
 }
