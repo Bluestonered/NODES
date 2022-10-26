@@ -144,7 +144,6 @@ function getnolaureateyear(){
     });
     if (!laureatsNumber.find((p) => p.year === prize.year) && (!laureatsNumberPassed.find((p) => p.year === prize.year))){
       if(count==0){
-        console.log(prize.year+" "+count)
         laureatsNumber.push({
         year: prize.year,
         number: count
@@ -159,7 +158,6 @@ function getnolaureateyear(){
     }else{
       if(count>0){
         if(!laureatsNumberPassed.find((p) => p.year === prize.year)){
-          console.log(prize.year)
           laureatsNumber.pop((p) => p.year === prize.year)  
         }
       }    
