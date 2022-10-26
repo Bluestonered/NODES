@@ -171,10 +171,10 @@ exports.findYearNoLaureate = (req, res) => {
   res.send(getnolaureateyear())
 }
 
-function orderlaureates(signe){
+function orderlaureates(req){
   const dataBuffer = fs.readFileSync('prize.json');
   const dataJSON = JSON.parse(dataBuffer.toString()).prizes
-
+  const signe = req.params['signe']
   const yearcount = [];
 
   dataJSON.forEach((prize) =>{
@@ -204,5 +204,5 @@ function orderlaureates(signe){
 }
 
 exports.orderlaureate = (req, res) => {
-  res.send(orderlaureates(req.params['signe']))
+  res.send(orderlaureates(req))
 }
