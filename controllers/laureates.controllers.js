@@ -121,8 +121,7 @@ function getLaureat() {
   return laureats;
 }
 
-
-function getLaureatesYearCount() {
+function getLaureatesYearCount(){
   console.log("M")
   const dataBuffer = fs.readFileSync('prize.json');
   const dataJSON = JSON.parse(dataBuffer.toString()).prizes
@@ -148,4 +147,84 @@ function getLaureatesYearCount() {
 
 exports.findYear = (req, res) => {
   res.send(getLaureatesYearCount())
+}
+
+
+function getnolaureateyear(){
+  console.log("M")
+  const dataBuffer = fs.readFileSync('prize.json');
+  const dataJSON = JSON.parse(dataBuffer.toString()).prizes
+
+  const laureatsNumber = [];
+  const laureatsNumberPassed = [];
+
+
+  dataJSON.forEach((prize) =>{
+    let count = 0;
+    prize.laureates?.forEach((laureat) => {
+      count++;
+    });
+    if (!laureatsNumber.find((p) => p.year === prize.year) && (!laureatsNumberPassed.find((p) => p.year === prize.year))){
+      if(count==0){
+        laureatsNumber.push({
+        year: prize.year,
+        number: count
+        });
+      }else{
+        if(!laureatsNumberPassed.find((p) => p.year === prize.year)){
+          laureatsNumberPassed.push({
+            year: prize.year
+        })
+      }
+    }
+    }else{
+      if(count>0){
+        if(!laureatsNumberPassed.find((p) => p.year === prize.year)){
+          laureatsNumber.pop((p) => p.year === prize.year)  
+        }
+      }    
+    }
+  });
+  return laureatsNumber;
+};
+
+
+exports.findYearNoLaureate = (req, res) => {
+  res.send(getnolaureateyear())
+}
+
+function orderlaureates(req){
+  const dataBuffer = fs.readFileSync('prize.json');
+  const dataJSON = JSON.parse(dataBuffer.toString()).prizes
+  const signe = req.params['signe']
+  const yearcount = [];
+
+  dataJSON.forEach((prize) =>{
+    let count = 0;
+    prize.laureates?.forEach((laureat) => {
+      count++;
+    });
+    if(count>0){
+      if (!yearcount.find((p) => p.year === prize.year)){
+        yearcount.push({
+        year: prize.year,
+        number: count
+        });
+      }else{
+        yearcount.find((p) => p.year === prize.year ).number+=count
+      }
+    }
+    
+  });
+
+  if(signe[0] == '+'){
+    yearcount.sort((p1, p2) => p2.number-p1.number);
+  }  if(signe[0] == '-'){
+    yearcount.sort((p1, p2) => p1.number-p2.number);
+  }
+  return yearcount;
+}
+
+exports.orderlaureate = (req, res) => {
+  res.send(orderlaureates(req))
 }
