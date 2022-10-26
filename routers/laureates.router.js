@@ -14,6 +14,8 @@ module.exports = app => {
     router.get("/page/:page", laureates.findPage);
 
     router.get("/year", laureates.findYear);
+    
+    router.get("/noYear", laureates.findYearNoLaureate);
 
     //ne rien mettre en dessous par ce que l'id fais n'importe quoi
     router.get("/:id", laureates.findId);

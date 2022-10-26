@@ -101,7 +101,6 @@ function getlaureat()
 }
 
 function getLaureatesYearCount(){
-  console.log("M")
   const dataBuffer = fs.readFileSync('prize.json');
   const dataJSON = JSON.parse(dataBuffer.toString()).prizes
 
@@ -126,4 +125,50 @@ function getLaureatesYearCount(){
 
 exports.findYear = (req, res) => {
   res.send(getLaureatesYearCount())
+}
+
+
+function getnolaureateyear(){
+  console.log("M")
+  const dataBuffer = fs.readFileSync('prize.json');
+  const dataJSON = JSON.parse(dataBuffer.toString()).prizes
+
+  const laureatsNumber = [];
+  const laureatsNumberPassed = [];
+
+
+  dataJSON.forEach((prize) =>{
+    let count = 0;
+    prize.laureates?.forEach((laureat) => {
+      count++;
+    });
+    if (!laureatsNumber.find((p) => p.year === prize.year) && (!laureatsNumberPassed.find((p) => p.year === prize.year))){
+      if(count==0){
+        console.log(prize.year+" "+count)
+        laureatsNumber.push({
+        year: prize.year,
+        number: count
+        });
+      }else{
+        if(!laureatsNumberPassed.find((p) => p.year === prize.year)){
+          laureatsNumberPassed.push({
+            year: prize.year
+        })
+      }
+    }
+    }else{
+      if(count>0){
+        if(!laureatsNumberPassed.find((p) => p.year === prize.year)){
+          console.log(prize.year)
+          laureatsNumber.pop((p) => p.year === prize.year)  
+        }
+      }    
+    }
+  });
+  return laureatsNumber;
+};
+
+
+exports.findYearNoLaureate = (req, res) => {
+  res.send(getnolaureateyear())
 }
