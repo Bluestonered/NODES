@@ -170,3 +170,39 @@ function getnolaureateyear(){
 exports.findYearNoLaureate = (req, res) => {
   res.send(getnolaureateyear())
 }
+
+function orderlaureates(signe){
+  const dataBuffer = fs.readFileSync('prize.json');
+  const dataJSON = JSON.parse(dataBuffer.toString()).prizes
+
+  const yearcount = [];
+
+  dataJSON.forEach((prize) =>{
+    let count = 0;
+    prize.laureates?.forEach((laureat) => {
+      count++;
+    });
+    if(count>0){
+      if (!yearcount.find((p) => p.year === prize.year)){
+        yearcount.push({
+        year: prize.year,
+        number: count
+        });
+      }else{
+        yearcount.find((p) => p.year === prize.year ).number+=count
+      }
+    }
+    
+  });
+
+  if(signe[0] == '+'){
+    yearcount.sort((p1, p2) => p2.number-p1.number);
+  }  if(signe[0] == '-'){
+    yearcount.sort((p1, p2) => p1.number-p2.number);
+  }
+  return yearcount;
+}
+
+exports.orderlaureate = (req, res) => {
+  res.send(orderlaureates(req.params['signe']))
+}

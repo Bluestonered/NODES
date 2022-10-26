@@ -17,6 +17,8 @@ module.exports = app => {
     
     router.get("/noYear", laureates.findYearNoLaureate);
 
+    router.get("/year/sort/:signe", laureates.orderlaureate);
+
     //ne rien mettre en dessous par ce que l'id fais n'importe quoi
     router.get("/:id", laureates.findId);
 
