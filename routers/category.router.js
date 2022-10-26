@@ -6,6 +6,7 @@ module.exports = app => {
    
     
     router.get("/", category.findAll);
+    router.get("/count", category.findCount);
 
     app.use('/category', router);
 };
