@@ -1,7 +1,5 @@
 const fs = require('fs');
 
-
-
 function getMultipleLaureats() {
   const dataBuffer = fs.readFileSync('prize.json');
   const dataJSON = JSON.parse(dataBuffer.toString()).prizes
@@ -25,7 +23,7 @@ function getMultipleLaureats() {
           number: 2
         });
       } else {
-        multipleLaureats.find((l) => l.id === laureat.id).number++ 
+        multipleLaureats.find((l) => l.id === laureat.id).number++
       }
     });
   });
@@ -34,29 +32,53 @@ function getMultipleLaureats() {
 }
 
 exports.findAll = (req, res) => {
-    res.send(getlaureat())
+  let finalLaureats = getLaureat()
+  if (req.query.firstname) {
+    // Filtrer finalLaureats sur le prénom
+     finalLaureats = finalLaureats.filter(Laur => Laur.firstname  === req.query.firstname)
   }
+  if (req.query.surname) {
+    // Filtrer finalLaureats sur le nom
+    finalLaureats = finalLaureats.filter(Laur => Laur.surname  === req.query.surname)
+  }
+  if (req.query.category) {
+    // Filtrer finalLaureats sur la catégorie
+    finalLaureats = finalLaureats.filter(Laur => Laur.category  === req.query.category)
+  }
+  res.send(finalLaureats)
+}
 
 exports.findDouble = (req, res) => {
   res.send(getMultipleLaureats());
 }
 
 exports.findId = (req, res) => {
+  const dataBuffer = fs.readFileSync('prize.json');
+  const prizes = JSON.parse(dataBuffer.toString()).prizes
+
   //récupérer id des laureat
   const id = req.params.id
   //parcourir les laureat avec id
-  const dataJSON = getlaureat();
+  const dataJSON = getLaureat();
 
-  const idObject = dataJSON.find(function(obj){    
-    return obj.id == id    
+  const idObject = dataJSON.find(function (obj) {
+    return obj.id == id
   })
+
+  const laureatePrizes = prizes.filter(prize => prize.laureates?.find(laureat => laureat.id === id))
+  laureatePrizes.forEach(prize => {
+    prize.motivation = prize.laureates.find(laureat => laureat.id === id).motivation
+    delete (prize.laureates)
+  })
+
+  idObject.prizes = laureatePrizes
   //afficher
   res.send(idObject);
 };
 
 exports.findNumber = (req, res) => {
 
-  ObjLaureats = getlaureat().filter((Laureat) => {
+  ObjLaureats = getLaureat().filter((Laureat) => {
     return Laureat
   })
 
@@ -67,19 +89,17 @@ exports.findPage = (req, res) => {
 
   let page = req.params.page
 
-  ObjLaureats = getlaureat().filter((Laureat) => {
+  ObjLaureats = getLaureat().filter((Laureat) => {
     return Laureat
   })
 
-  if (page == 1)
-  {
+  if (page == 1) {
     page = 0;
   }
-  res.send(ObjLaureats.slice(10 * page,10 * page +10))
+  res.send(ObjLaureats.slice(10 * page, 10 * page + 10))
 }
 
-function getlaureat()
-{
+function getLaureat() {
   const dataBuffer = fs.readFileSync('prize.json');
   const dataJSON = JSON.parse(dataBuffer.toString()).prizes
 
@@ -93,6 +113,7 @@ function getlaureat()
           id: laureat.id,
           firstname: laureat.firstname,
           surname: laureat.surname,
+          category: prize.category,
         });
     });
   });
@@ -100,25 +121,26 @@ function getlaureat()
   return laureats;
 }
 
-function getLaureatesYearCount(){
+
+function getLaureatesYearCount() {
   console.log("M")
   const dataBuffer = fs.readFileSync('prize.json');
   const dataJSON = JSON.parse(dataBuffer.toString()).prizes
 
   const laureatsNumber = [];
 
-  dataJSON.forEach((prize) =>{
+  dataJSON.forEach((prize) => {
     let count = 0;
     prize.laureates?.forEach((laureat) => {
       count++;
     });
-    if (!laureatsNumber.find((p) => p.year === prize.year)){
+    if (!laureatsNumber.find((p) => p.year === prize.year)) {
       laureatsNumber.push({
-      year: prize.year,
-      number: count
+        year: prize.year,
+        number: count
       });
-    }else{
-      laureatsNumber.find((p) => p.year === prize.year ).number+=count
+    } else {
+      laureatsNumber.find((p) => p.year === prize.year).number += count
     }
   });
   return laureatsNumber;

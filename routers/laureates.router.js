@@ -18,6 +18,5 @@ module.exports = app => {
     //ne rien mettre en dessous par ce que l'id fais n'importe quoi
     router.get("/:id", laureates.findId);
 
-
     app.use('/laureates', router);
 };
