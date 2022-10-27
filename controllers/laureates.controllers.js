@@ -1,3 +1,4 @@
+const { privateEncrypt } = require('crypto');
 const fs = require('fs');
 
 function getMultipleLaureats() {
@@ -254,4 +255,80 @@ function orderlaureates(req){
 
 exports.orderlaureate = (req, res) => {
   res.send(orderlaureates(req))
+}
+
+
+function deletelaureate(req){
+  const dataBuffer = fs.readFileSync('prize.json');
+  const dataJSON = JSON.parse(dataBuffer.toString()).prizes
+  
+  let id = req.params['id'];
+  let year = req.params['annee'];
+  let cate = req.params['categorie'];
+
+  dataJSON.forEach((prize) => {
+    if(prize.year == year && prize.category == cate){
+      prize.laureates?.forEach((laureat) => {
+        if(laureat.id == id){
+          let deletedFilter = prize.laureates.filter(l => l.id !== id);
+          prize.laureates = deletedFilter;
+        }
+    } );
+    }
+  });
+
+  let prizes = {prizes: dataJSON}
+  let newJSON = JSON.stringify(prizes);
+  fs.writeFileSync('prize.json', newJSON)
+} 
+
+exports.delete = (req, res) => {
+  res.send(deletelaureate(req))
+}
+
+function addlaureate(req){
+  const dataBuffer = fs.readFileSync('prize.json');
+  const dataJSON = JSON.parse(dataBuffer.toString()).prizes
+
+
+  // let newid = req.params['id'];
+  // let newfirstname = req.params['firstname'];
+  // let newsurname = req.params['surname'];
+  // let newmotivation = req.params['motivation'];
+  // let newshare = req.params['share'];
+  // let id = req.params['id'];
+  // let year = req.params['annee'];
+  // let cate = req.params['categorie'];
+  let year = 2021;
+  let cate = chemistry;
+  let newid = 100000;
+  let newfirstname = "Samson";
+  let newsurname = "Phrog";
+  let newmotivation = "pute";
+  let newshare = 2;
+
+
+  dataJSON.forEach((prize) => {
+    if(prize.year == year && prize.category == cate){
+      prize.laureates?.forEach((laureat) => {
+        if(laureat.id == id){
+          prize.laureates.push({
+            id: id,
+            firstname: newfirstname,
+            surname: newsurname,
+            motivation: newmotivation,
+            share: newshare
+          })
+        }
+    } );
+    }
+  });
+  
+  let prizes = {prizes: dataJSON}
+  let newJSON = JSON.stringify(prizes);
+  fs.writeFileSync('prize_added.json', newJSON)
+} 
+
+exports.add = (req, res) => {
+  res.send(addlaureate(req))
 }
