@@ -31,6 +31,33 @@ function getMultipleLaureats() {
   return multipleLaureats;
 }
 
+exports.updateMotivation = (req, res) => {
+
+  const dataBuffer = fs.readFileSync('prize.json');
+  const prizes = JSON.parse(dataBuffer.toString()).prizes
+
+  //récupérer id des laureat
+  const id = req.params.id
+  //parcourir les laureat avec id
+  const dataJSON = getLaureat();
+
+  const idObject = dataJSON.find(function (obj) {
+    return obj.id == id
+  })
+
+  const laureatePrizes = prizes.filter(prize => prize.laureates?.find(laureat => laureat.id === id))
+  laureatePrizes.forEach(prize => {
+    prize.motivation = prize.laureates.find(laureat => laureat.id === id).motivation
+    delete (prize.laureates)
+  })
+
+  idObject.prizes = laureatePrizes
+  //afficher
+  res.send(idObject);
+
+}
+
+
 exports.findAll = (req, res) => {
   let finalLaureats = getLaureat()
   if (req.query.firstname) {
