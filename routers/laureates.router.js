@@ -69,7 +69,7 @@ module.exports = app => {
     router.get("/page/:page", laureates.findPage);
     /**
      * @swagger
-     * /laureates/multiple:
+     * /laureates/page/:
      *   get:
      *      description: Used to get all people that have multiple laureates
      *      tags:
