@@ -97,7 +97,9 @@ module.exports = app => {
     router.get("/supprimer/:id/:annee/:categorie", laureates.add);
 
     //ne rien mettre en dessous par ce que l'id fais n'importe quoi
-    router.get("/:id", laureates.findId);
+    //router.get("/:id", laureates.findId);//NOTE
+
+    router.get("/:id", laureates.updateMotivation);
 
     app.use('/laureates', router);
 };
