@@ -28,9 +28,9 @@ module.exports = app => {
      * @swagger
      * /category/count:
      *   get:
-     *      description: Used to find number laureates per categories
+     *      description: Used to find number laureates per categories and order them desc so it show who have the most laureates 
      *      tags:
-     *          - F7 Count number laureates by categories and order them desc so it show who have the most laureates 
+     *          - F7 Count number laureates by categories 
      *      responses:
      *          '200':
      *              description: Succes
