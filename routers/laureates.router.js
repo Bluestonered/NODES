@@ -223,10 +223,10 @@ module.exports = app => {
      *              description: Bad request
      */
 
-    router.post("/:annee/:categorie", laureates.add);
+    router.post("/", laureates.add);
         /**
      * @swagger
-     * /laureates/{annee}/{categorie}:
+     * /laureates:
      *   post:
      *      description: Used to add a laureate
      *      tags:
@@ -279,6 +279,8 @@ module.exports = app => {
      *          '400':
      *              description: Bad request
      */
+
+    router.get
 
     app.use('/laureates', router);
 };
