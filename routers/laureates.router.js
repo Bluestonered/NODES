@@ -273,7 +273,7 @@ module.exports = app => {
     /**
      * @swagger
      * /laureates/:id:
-     *   post:
+     *   get:
      *      description: Used to get Find number laureates per year
      *      tags:
      *          - Find laureates with ID
