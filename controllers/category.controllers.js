@@ -60,7 +60,7 @@ function getCategoriesCount() {
   return categories;
 }
 
-exports.getCategories = () => {
+function getCategories() {
   const dataBuffer = fs.readFileSync('prize.json');
   const dataJSON = JSON.parse(dataBuffer.toString()).prizes
 
@@ -75,3 +75,5 @@ exports.getCategories = () => {
 
   return categories;
 }
+
+exports.getCategories = getCategories;
