@@ -112,11 +112,9 @@ exports.findId = (req, res) => {
 };
 
 exports.findNumber = (req, res) => {
-
     ObjLaureats = getLaureates().filter((Laureat) => {
         return Laureat
     })
-
     res.send(ObjLaureats.length.toString())
 }
 
@@ -321,7 +319,6 @@ exports.delete = (req, res) => {
 
 
 function addlaureate(req) {
-    console.log(req)
     const dataBuffer = fs.readFileSync('prize.json');
     const dataJSON = JSON.parse(dataBuffer.toString()).prizes
     const laureates = getLaureates()
@@ -334,7 +331,8 @@ function addlaureate(req) {
 
     const foundLaureate = laureates.find(l => l.firstname == firstname && l.surname == surname)
     if (foundLaureate)
-        id = foundLaureate.id
+        return JSON.stringify({code: 400, message: "error, this laureat already exist"})
+
 
     if (!dataJSON[filteredPrizeID].laureates)
         dataJSON[filteredPrizeID].laureates = []
