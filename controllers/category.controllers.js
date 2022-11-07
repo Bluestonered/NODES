@@ -18,7 +18,7 @@ exports.findLaureates = (req, res) => {
       });
     }
   });
-  res.status(200).render("home", {laureates:Array.from(laureates_set), categories:getCategories(), category:cat})
+  res.status(200).render("vue1", {laureates:Array.from(laureates_set), categories:getCategories(), category:cat})
 }
 
 exports.findAll = (req, res) => {

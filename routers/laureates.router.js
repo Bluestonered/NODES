@@ -207,25 +207,14 @@ module.exports = app => {
      *              description: Bad request
      */
 
-    router.post("/:annee/:categorie", laureates.add);
-    /**
+     router.post("/", laureates.add);
+     /**
      * @swagger
-     * /laureates/{annee}/{categorie}:
+     * /laureates:
      *   post:
      *      description: Used to add a laureate
      *      tags:
      *          - add new laureat
-     *      parameters:
-     *          - in: path
-     *            name: annee
-     *            schema:
-     *              type:  integer
-     *            required: true
-     *          - in: path
-     *            name: categorie
-     *            schema:
-     *              type: string
-     *            required: true
      *      requestBody:
      *         content:
      *            application/json:
@@ -233,7 +222,7 @@ module.exports = app => {
      *                  type: object
      *               examples:
      *                  new_laureat:
-     *                     value: {"firstname": "nouveau prénom", "surname": "nouveau surnom", "motivation": "nouvelle motivation"}
+     *                     value: {"year": "année" ,"category": "categorie" ,"firstname": "nouveau prénom", "surname": "nouveau surnom", "motivation": "nouvelle motivation"}
      *      responses:
      *          '200':
      *              description: Succes
@@ -263,6 +252,8 @@ module.exports = app => {
      *          '400':
      *              description: Bad request
      */
+
+    router.get
 
     app.use('/laureates', router);
 };
