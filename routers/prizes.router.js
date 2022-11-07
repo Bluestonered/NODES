@@ -12,7 +12,7 @@ module.exports = app => {
      *   get:
      *      description: Count to find all prizes
      *      tags:
-     *          - Count all prizes
+     *          - F3 Count all prizes
      *      responses:
      *          '200':
      *              description: Succes

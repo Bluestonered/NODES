@@ -334,7 +334,7 @@ function addlaureate(req) {
 
     let id = laureates.length;
 
-    const { firstname, surname, motivation, year, category} = req.body;
+    const {firstname, surname, motivation, year, category} = req.body;
 
     const target_prize_index = dataJSON.findIndex(prize => prize.year == year && prize.category == category);
     if (!target_prize_index){

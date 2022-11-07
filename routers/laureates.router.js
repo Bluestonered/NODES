@@ -13,7 +13,7 @@ module.exports = app => {
      *   get:
      *      description: Used to get all laureates
      *      tags:
-     *          - Get all laureates
+     *          - F1 & F12 Get all laureates
      *      parameters:
      *          - in: query
      *            name: firstname
@@ -46,7 +46,7 @@ module.exports = app => {
      *   get:
      *      description: Used to get number of laureates
      *      tags:
-     *          - Number of laureates
+     *          - F4 Number of laureates
      *      responses:
      *          '200':
      *              description: Succes
@@ -64,7 +64,7 @@ module.exports = app => {
      *   get:
      *      description: Used to get all people that have multiple laureates
      *      tags:
-     *          - Get multiple laureate people
+     *          - F5 Get multiple laureate people
      *      responses:
      *          '200':
      *              description: Succes
@@ -104,7 +104,7 @@ module.exports = app => {
      *   get:
      *      description: Used to get number of laureates for each year
      *      tags:
-     *          - Laureates by year
+     *          - F8 Laureates by year
      *      responses:
      *          '200':
      *              description: Succes
@@ -121,7 +121,7 @@ module.exports = app => {
      *   get:
      *      description: Used to get all years that don't have laureate
      *      tags:
-     *          - Year with no laureate
+     *          - F10 Year with no laureate
      *      responses:
      *          '200':
      *              description: Succes
@@ -137,7 +137,7 @@ module.exports = app => {
      *   get:
      *      description: Used to order year by their number of laureate (- for asc and + for desc)
      *      tags:
-     *          - Sort year
+     *          - F11 Sort year
      *      parameters:
      *          - in: path
      *            name: signe
@@ -160,7 +160,7 @@ module.exports = app => {
      *   delete:
      *      description: Used to delete laureat by the id, year and category
      *      tags:
-     *          - Delete a laureat
+     *          - F13 Delete a laureat
      *      requestBody:
      *         content:
      *            application/json:
@@ -185,7 +185,7 @@ module.exports = app => {
      *   put:
      *      description: Used to update the motivation from a laureate by the id, year and category
      *      tags:
-     *          - Update a laureat
+     *          - F14 Update a laureat
      *      requestBody:
      *         content:
      *            application/json:
@@ -210,7 +210,7 @@ module.exports = app => {
      *   post:
      *      description: Used to add a laureate with a specific year and category
      *      tags:
-     *          - add new laureat
+     *          - F15 add new laureat
      *      requestBody:
      *         content:
      *            application/json:
@@ -236,7 +236,7 @@ module.exports = app => {
      *   get:
      *      description: Used to get a laureate by the id
      *      tags:
-     *          - Find laureates with ID
+     *          - F2 & F9 Find laureates with ID
      *      parameters:
      *          - in: path
      *            name: id

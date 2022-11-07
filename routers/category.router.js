@@ -12,7 +12,7 @@ module.exports = app => {
      *   get:
      *      description: Used to get all categories
      *      tags:
-     *          - Find all categories
+     *          - F6 Find all categories
      *      responses:
      *          '200':
      *              description: Succes
@@ -30,7 +30,7 @@ module.exports = app => {
      *   get:
      *      description: Used to find number laureates per categories
      *      tags:
-     *          - Count number laureates by categories
+     *          - F7 Count number laureates by categories
      *      responses:
      *          '200':
      *              description: Succes

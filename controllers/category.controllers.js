@@ -47,7 +47,7 @@ function getCategoriesCount() {
     }
   });
 
-  
+  categories.sort((categ1, categ2) => categ2.count - categ1.count);
   return categories;
 }
 
