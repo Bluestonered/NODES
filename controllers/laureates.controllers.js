@@ -314,7 +314,6 @@ function deleteLaureate(req) {
 }
 
 exports.delete = (req, res) => {
-    console.log(req.params);
     res.send(deleteLaureate(req))
 }
 
@@ -331,19 +330,16 @@ function addlaureate(req) {
     const dataBuffer = fs.readFileSync('prize.json');
     const dataJSON = JSON.parse(dataBuffer.toString()).prizes
     const laureates = getLaureates()
-    console.log(req.body);
 
     let id = laureates.length;
 
     const { firstname, surname, motivation, year, category} = req.body;
 
     const target_prize_index = dataJSON.findIndex(prize => prize.year == year && prize.category == category);
-    console.log(dataJSON[target_prize_index]);
     if (target_prize_index == null){
         return {code:404, message:"ce prix n'existe pas"}
     }
     let laureat = findLaureateByName(firstname,surname);
-    console.log(laureat);
     let id_l;
     if (laureat != null){
         id_l = laureat.id;
