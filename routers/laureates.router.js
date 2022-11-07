@@ -4,6 +4,8 @@ module.exports = app => {
     const laureates = require('../controllers/laureates.controllers');
     const router = express.Router();
    
+
+    router.get("/", laureates.findAll);
     /**
      * @swagger
      * /laureates/:
@@ -19,24 +21,6 @@ module.exports = app => {
      *          '400':
      *              description: Bad request
      */ 
-    router.get("/", laureates.findAll);
-
-
-    /**
-     * @swagger
-     * /laureates/nbr:
-     *   get:
-     *      description: Get number of laureates
-     *      tags:
-     *          - Number of laureates
-     *      responses:
-     *          '200':
-     *              description: Succes
-     *          '500':
-     *              description: Internal server error
-     *          '400':
-     *              description: Bad request
-     */
 
     router.get("/nbr", laureates.findNumber);
     /**
