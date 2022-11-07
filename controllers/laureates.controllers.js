@@ -56,7 +56,7 @@ exports.updateMotivation = (req, res) => {
     })
 
     idObject.prizes = laureatePrizes
-    //afficher
+
     res.send(idObject);
 
 }
@@ -119,7 +119,6 @@ exports.findNumber = (req, res) => {
     ObjLaureats = getLaureates().filter((Laureat) => {
         return Laureat
     })
-
     res.send(ObjLaureats.length.toString())
 }
 
@@ -143,7 +142,6 @@ function getLaureates() {
 
     const laureats = [];
 
-    //VOILA
     dataJSON.forEach((prize) => {
         prize.laureates?.forEach((laureat) => {
             if (!laureats.find((l) => l.id === laureat.id))
@@ -160,7 +158,6 @@ function getLaureates() {
 }
 
 function getLaureatesYearCount() {
-    console.log("M")
     const dataBuffer = fs.readFileSync('prize.json');
     const dataJSON = JSON.parse(dataBuffer.toString()).prizes
 
@@ -189,7 +186,6 @@ exports.findYear = (req, res) => {
 
 
 function getnolaureateyear() {
-    console.log("M")
     const dataBuffer = fs.readFileSync('prize.json');
     const dataJSON = JSON.parse(dataBuffer.toString()).prizes
 
@@ -339,7 +335,6 @@ function addlaureate(req) {
     let id = laureates.length;
 
     const { firstname, surname, motivation, year, category} = req.body;
-    console.log(req.body)
 
     const target_prize_index = dataJSON.findIndex(prize => prize.year == year && prize.category == category);
     if (!target_prize_index){

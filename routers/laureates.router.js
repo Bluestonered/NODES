@@ -14,6 +14,22 @@ module.exports = app => {
      *      description: Used to get all laureates
      *      tags:
      *          - Get all laureates
+     *      parameters:
+     *          - in: query
+     *            name: firstname
+     *            schema:
+     *              type: string
+     *            required: false
+     *          - in: query
+     *            name: surname
+     *            schema:
+     *              type: string
+     *            required: false
+     *          - in: query
+     *            name: category
+     *            schema:
+     *              type: string
+     *            required: false
      *      responses:
      *          '200':
      *              description: Succes
