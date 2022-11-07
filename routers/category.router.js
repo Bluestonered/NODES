@@ -30,7 +30,7 @@ module.exports = app => {
      *   get:
      *      description: Used to find number laureates per categories
      *      tags:
-     *          - F7 Count number laureates by categories
+     *          - F7 Count number laureates by categories and order them desc so it show who have the most laureates 
      *      responses:
      *          '200':
      *              description: Succes
