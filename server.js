@@ -1,3 +1,6 @@
+//API_REST
+//Hugo FOULON, Arnaud CHEVALME, Lilian SCHOTT, Samson DUPUY
+///////////////////////////////////////////////////////////
 const express = require("express");
 const hbengine = require("express-handlebars");
 const port = 3000;
