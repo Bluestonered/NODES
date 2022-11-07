@@ -1,7 +1,7 @@
 const { privateEncrypt } = require('crypto');
 const cat_controller = require("./category.controllers");
 const fs = require('fs');
-
+const {findLaureates} = require("./category.controllers");
 
 
 function getMultipleLaureats() {
@@ -62,7 +62,8 @@ exports.updateMotivation = (req, res) => {
 }
 
 
-exports.findAll = (req, res) => {
+
+findAll = (req, res) => {
     let finalLaureats = getLaureates()
     if (req.query.firstname) {
         // Filtrer finalLaureats sur le prénom
@@ -78,6 +79,8 @@ exports.findAll = (req, res) => {
     }
     res.send(finalLaureats)
 }
+
+exports.findAll = findAll;
 
 exports.findDouble = (req, res) => {
     res.send(getMultipleLaureats());
@@ -319,9 +322,16 @@ exports.delete = (req, res) => {
     res.send(deleteLaureate(req))
 }
 
+function findLaureateByName(firstname, surname)  {
+    let target = getLaureates().find(laureate => laureate.firstname == firstname && laureate.surname == surname);
+    return target;
+}
+function getMaxId()  {
+    return Math.max(...getLaureates().map(l => l.id));
+}
+
 
 function addlaureate(req) {
-    console.log(req)
     const dataBuffer = fs.readFileSync('prize.json');
     const dataJSON = JSON.parse(dataBuffer.toString()).prizes
     const laureates = getLaureates()
@@ -329,19 +339,22 @@ function addlaureate(req) {
     let id = laureates.length;
 
     const { firstname, surname, motivation, year, category} = req.body;
+    console.log(req.body)
 
-    const filteredPrizeID = dataJSON.findIndex(prize => prize.year == year && prize.category == category)
+    const target_prize_index = dataJSON.findIndex(prize => prize.year == year && prize.category == category);
+    if (!target_prize_index){
+        return {code:404, message:"ce prix n'existe pas"}
+    }
+    let laureat = findLaureateByName(firstname,surname);
+    let id_l;
+    if (laureat){
+        id_l = laureat.id;
+    }else {
+        id_l = getMaxId() + 1;
+    }
+    dataJSON[target_prize_index].laureates.push({id, firstname, surname, motivation});
 
-    const foundLaureate = laureates.find(l => l.firstname == firstname && l.surname == surname)
-    if (foundLaureate)
-        id = foundLaureate.id
-
-    if (!dataJSON[filteredPrizeID].laureates)
-        dataJSON[filteredPrizeID].laureates = []
-
-    dataJSON[filteredPrizeID].laureates.push({id, firstname, surname, motivation})
-
-    fs.writeFileSync('prize.json', JSON.stringify({prizes: dataJSON}, null, 2))
+    fs.writeFileSync('prize.json', JSON.stringify({prizes: dataJSON}, null, 4))
     return JSON.stringify({code: 200, message: "successfully added laureate with id:"+id})
 }
 exports.add_view = (req,res) => {
