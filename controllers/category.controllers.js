@@ -40,10 +40,19 @@ function getCategoriesCount() {
     if (!categories.find((categ) => categ?.category === prize.category)) {
       categories.push({
         category: prize.category,
-        count: 1
+        count: 0
       })
+      let nbr = 0;
+        prize.laureates?.forEach((laureat) => {
+          nbr++;
+        });
+      categories.find((categ) => categ?.category === prize.category).count+=nbr
     } else {
-      categories.find((categ) => categ?.category === prize.category).count++
+      let nbr = 0;
+        prize.laureates?.forEach((laureat) => {
+          nbr++;
+        });
+      categories.find((categ) => categ?.category === prize.category).count+=nbr
     }
   });
 
