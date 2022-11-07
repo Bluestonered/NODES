@@ -4,11 +4,13 @@ module.exports = app => {
     const category = require('../controllers/category.controllers');
     const router = express.Router();
    
-    /**
+
+    router.get("/", category.findAll);
+        /**
      * @swagger
      * /category/:
      *   get:
-     *      description: Used to get Find number laureates per year
+     *      description: Used to get all categories
      *      tags:
      *          - Find all category
      *      responses:
@@ -19,15 +21,16 @@ module.exports = app => {
      *          '400':
      *              description: Bad request
      */
-    router.get("/", category.findAll);
 
+
+    router.get("/count", category.findCount);
     /**
      * @swagger
-     * /category/:
+     * /category/count:
      *   get:
-     *      description: Used to get Find number laureates per year
+     *      description: Used to find number laureates per year
      *      tags:
-     *          - Find category
+     *          - Count number laureates by categories
      *      responses:
      *          '200':
      *              description: Succes
@@ -36,9 +39,10 @@ module.exports = app => {
      *          '400':
      *              description: Bad request
      */
-    router.get("/count", category.findCount);
 
+    // no swagger because it's used for handlebar
     router.get("/laureates", category.findLaureates)
+
 
     app.use('/category', router);
 };

@@ -47,7 +47,6 @@ function getCategoriesCount() {
     }
   });
 
-  console.log(categories)
   
   return categories;
 }

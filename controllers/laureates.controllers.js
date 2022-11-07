@@ -150,7 +150,6 @@ function getLaureates() {
 }
 
 function getLaureatesYearCount() {
-  console.log("M")
   const dataBuffer = fs.readFileSync('prize.json');
   const dataJSON = JSON.parse(dataBuffer.toString()).prizes
 
@@ -179,7 +178,6 @@ exports.findYear = (req, res) => {
 
 
 function getnolaureateyear() {
-  console.log("M")
   const dataBuffer = fs.readFileSync('prize.json');
   const dataJSON = JSON.parse(dataBuffer.toString()).prizes
 
@@ -269,8 +267,6 @@ function updateLaureate(req) {
   const year = req.params['annee'];
   const cate = req.params['categorie'];
   const motivation = req.body.motivation;
-  console.log(motivation);
-  console.log(req);
   const filteredPrizeID = dataJSON.findIndex(prize => prize.year == year && prize.category == cate)
 
   if (filteredPrizeID == -1) 
@@ -314,7 +310,6 @@ function deleteLaureate(req) {
 }
 
 exports.delete = (req, res) => {
-  console.log(req.params);
   res.send(deleteLaureate(req))
 }
 
