@@ -40,9 +40,9 @@ exports.updateMotivation = (req, res) => {
     const dataBuffer = fs.readFileSync('prize.json');
     const prizes = JSON.parse(dataBuffer.toString()).prizes
 
-    //récupérer id des laureat
+
     const id = req.params.id
-    //parcourir les laureat avec id
+
     const dataJSON = getLaureates();
 
     const idObject = dataJSON.find(function (obj) {
@@ -56,7 +56,7 @@ exports.updateMotivation = (req, res) => {
     })
 
     idObject.prizes = laureatePrizes
-    //afficher
+
     res.send(idObject);
 
 }
@@ -87,10 +87,8 @@ exports.findId = (req, res) => {
     const dataBuffer = fs.readFileSync('prize.json');
     const prizes = JSON.parse(dataBuffer.toString()).prizes;
 
-    //récupérer id des laureat
     const id = req.params.id;
 
-    //parcourir les laureat avec id
     const dataJSON = getLaureates();
 
     const idObject = dataJSON.find(function (obj) {
@@ -107,7 +105,7 @@ exports.findId = (req, res) => {
     })
 
     idObject.prizes = laureatePrizes
-    //afficher
+
     res.send(idObject);
 };
 
@@ -138,7 +136,6 @@ function getLaureates() {
 
     const laureats = [];
 
-    //VOILA
     dataJSON.forEach((prize) => {
         prize.laureates?.forEach((laureat) => {
             if (!laureats.find((l) => l.id === laureat.id))
@@ -155,7 +152,6 @@ function getLaureates() {
 }
 
 function getLaureatesYearCount() {
-    console.log("M")
     const dataBuffer = fs.readFileSync('prize.json');
     const dataJSON = JSON.parse(dataBuffer.toString()).prizes
 
@@ -184,7 +180,6 @@ exports.findYear = (req, res) => {
 
 
 function getnolaureateyear() {
-    console.log("M")
     const dataBuffer = fs.readFileSync('prize.json');
     const dataJSON = JSON.parse(dataBuffer.toString()).prizes
 
