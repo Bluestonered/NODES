@@ -38,7 +38,7 @@ module.exports = app => {
      *          '400':
      *              description: Bad request
      */
-    
+
     router.get("/multiple", laureates.findDouble);
     /**
      * @swagger
@@ -175,7 +175,7 @@ module.exports = app => {
      * @swagger
      * /laureates/{id}/{annee}/{categorie}:
      *   put:
-     *      description: Used to update laureat
+     *      description: Used to update laureat (not working on swagger -> issues from the body)
      *      tags:
      *          - Update a laureat
      *      parameters:
@@ -194,11 +194,11 @@ module.exports = app => {
      *            schema:
      *              type: string
      *            required: true
-     *      requestBody:
-     *         content:
-     *              motivation:
-     *                  schema:
-     *                   type: string
+     *          - in: body
+     *            name: motivation
+     *            schema:
+     *              type: string
+     *            required: true
      *      responses:
      *          '200':
      *              description: Succes
@@ -213,7 +213,7 @@ module.exports = app => {
      * @swagger
      * /laureates/{annee}/{categorie}:
      *   post:
-     *      description: Used to update laureat
+     *      description: Used to update laureat (not working on swagger -> issues from the body)
      *      tags:
      *          - add new laureat
      *      parameters:
@@ -227,17 +227,17 @@ module.exports = app => {
      *            schema:
      *              type: string
      *            required: true
-     *          - in: header
+     *          - in: body
      *            name: firstname
      *            schema:
      *              type: string
      *            required: true
-     *          - in: header
+     *          - in: body
      *            name: surname
      *            schema:
      *              type: string
      *            required: false
-     *          - in: header
+     *          - in: body
      *            name: motivation
      *            schema:
      *              type: string

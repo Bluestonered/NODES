@@ -265,12 +265,11 @@ exports.update = (req, res) => {
 function updateLaureate(req) {
   const dataBuffer = fs.readFileSync('prize.json');
   const dataJSON = JSON.parse(dataBuffer.toString()).prizes
-
+  
   const id = req.params['id'];
   const year = req.params['annee'];
   const cate = req.params['categorie'];
   const motivation = req.body.motivation;
-  console.log(req.body);
   const filteredPrizeID = dataJSON.findIndex(prize => prize.year == year && prize.category == cate)
 
   if (filteredPrizeID == -1) 
