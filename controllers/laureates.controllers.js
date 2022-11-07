@@ -269,14 +269,17 @@ function updateLaureate(req) {
   const year = req.params['annee'];
   const cate = req.params['categorie'];
   const motivation = req.body.motivation;
-
+  console.log(motivation);
+  console.log(req);
   const filteredPrizeID = dataJSON.findIndex(prize => prize.year == year && prize.category == cate)
 
-  if (filteredPrizeID == -1) return JSON.stringify({code: 404, message: "cannot find given year or category"})
+  if (filteredPrizeID == -1) 
+    return JSON.stringify({code: 404, message: "cannot find given year or category"})
 
   const filteredLaureateID = dataJSON[filteredPrizeID].laureates.findIndex(l => l.id == id)
 
-  if (filteredLaureateID == -1) return JSON.stringify({code: 404, message: "cannot find given laureate for given category in given year"})
+  if (filteredLaureateID == -1) 
+    return JSON.stringify({code: 404, message: "cannot find given laureate for given category in given year"})
 
   dataJSON[filteredPrizeID].laureates[filteredLaureateID].motivation = motivation
 
@@ -296,15 +299,18 @@ function deleteLaureate(req) {
 
   const filteredPrizeID = dataJSON.findIndex(prize => prize.year == year && prize.category == cate)
 
-  if (filteredPrizeID == -1) return JSON.stringify({code: 404, message: "cannot find given year or category"})
+  if (filteredPrizeID == -1) 
+    return JSON.stringify({code: 404, message: "cannot find given year or category"})
 
-  if (!dataJSON[filteredPrizeID].laureates?.find(l => l.id == id)) return JSON.stringify({code: 404, message: "cannot find given laureate for given category in given year"})
+  if (!dataJSON[filteredPrizeID].laureates?.find(l => l.id == id)) 
+    return JSON.stringify({code: 404, message: "cannot find given laureate for given category in given year"})
 
   dataJSON[filteredPrizeID].laureates = dataJSON[filteredPrizeID].laureates.filter(l => l.id != id)
 
   fs.writeFileSync('prize.json', JSON.stringify({prizes: dataJSON}, null, 2))
 
-  if (!dataJSON[filteredPrizeID].laureates.find(l => l.id == id)) return JSON.stringify({code: 200, message: "successfully deleted laureate"})
+  if (!dataJSON[filteredPrizeID].laureates.find(l => l.id == id)) 
+    return JSON.stringify({code: 200, message: "successfully deleted laureate"})
 }
 
 exports.delete = (req, res) => {
@@ -327,14 +333,16 @@ function addlaureate(req) {
   const filteredPrizeID = dataJSON.findIndex(prize => prize.year == year && prize.category == cate)
 
   const foundLaureate = laureates.find(l => l.firstname == firstname && l.surname == surname)
-  if (foundLaureate) id = foundLaureate.id
+  if (foundLaureate) 
+    id = foundLaureate.id
 
-  if (!dataJSON[filteredPrizeID].laureates) dataJSON[filteredPrizeID].laureates = []
+  if (!dataJSON[filteredPrizeID].laureates) 
+    dataJSON[filteredPrizeID].laureates = []
 
   dataJSON[filteredPrizeID].laureates.push({id, firstname, surname, motivation})
 
   fs.writeFileSync('prize.json', JSON.stringify({prizes: dataJSON}, null, 2))
-  return JSON.stringify({code: 200, message: "successfully added laureate"})
+  return JSON.stringify({code: 200, message: "successfully added laureate with id:"+id})
 }
 
 exports.add = (req, res) => {

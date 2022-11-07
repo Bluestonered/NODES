@@ -188,7 +188,7 @@ module.exports = app => {
     /**
      * @swagger
      * /laureates/{id}/{annee}/{categorie}:
-     *   post:
+     *   put:
      *      description: Used to update laureat
      *      tags:
      *          - Update a laureat
@@ -207,20 +207,12 @@ module.exports = app => {
      *            name: categorie
      *            schema:
      *              type: string
+     *            required: true
      *      requestBody:
-     *         required: true
      *         content:
-     *              application/x-www-form-urlencoded:
-     *              schema:
-     *                   type: object
-     *              properties:
-     *                   name: truc
+     *              motivation:
+     *                  schema:
      *                   type: string
-     *                   fav_number: truc
-     *                   type: integer
-     *              required:
-     *                   - name
-     *                   - email
      *      responses:
      *          '200':
      *              description: Succes
