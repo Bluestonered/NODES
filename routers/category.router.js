@@ -38,5 +38,7 @@ module.exports = app => {
      */
     router.get("/count", category.findCount);
 
+    router.get("/laureates", category.findLaureates)
+
     app.use('/category', router);
 };

@@ -1,0 +1,32 @@
+
+<form action="http://localhost:3000/category/laureates" method="GET">
+    <select class="form-select" aria-label="Default select example" name="category" id="category">
+        {{#each categories}}
+            <option>{{this}}</option>
+        {{/each}}
+    </select>
+    <button type="submit" class="btn btn-primary mb-3">Valider</button>
+</form>
+<table>
+    <h1>Current catégorie : {{category}}</h1>
+    <tr>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Year</th>
+    </tr>
+    {{#if laureates}}
+        {{#each laureates}}
+            <tr>
+                <td>{{this.firstname}}</td>
+                <td>{{this.surname}}</td>
+                <td>{{this.year}}</td>
+            </tr>
+        {{/each}}
+    {{else}}
+        <tr>
+            <td>Na</td>
+            <td>Na</td>
+            <td>Na</td>
+        </tr>
+    {{/if}}
+</table>

@@ -210,12 +210,9 @@ module.exports = app => {
      *            required: true
      *      requestBody:
      *         content:
-     *            application/json:
-     *               schema:
-     *                  type: object
-     *               examples:
-     *                  new_motivation:
-     *                     value: {"motivation": "nouvelle motivation"}
+     *              motivation:
+     *                  schema:
+     *                   type: string
      *      responses:
      *          '200':
      *              description: Succes
