@@ -267,13 +267,9 @@ function updateLaureate(req) {
     const dataBuffer = fs.readFileSync('prize.json');
     const dataJSON = JSON.parse(dataBuffer.toString()).prizes
 
-    const id = req.params['id'];
-    const year = req.params['annee'];
-    const cate = req.params['categorie'];
-    const motivation = req.body.motivation;
-    console.log(motivation);
-    console.log(req);
-    const filteredPrizeID = dataJSON.findIndex(prize => prize.year == year && prize.category == cate)
+    const {id, year, category, motivation} = req.body
+
+    const filteredPrizeID = dataJSON.findIndex(prize => prize.year == year && prize.category == category)
 
     if (filteredPrizeID == -1)
         return JSON.stringify({code: 404, message: "cannot find given year or category"})
@@ -295,11 +291,9 @@ function deleteLaureate(req) {
     const dataBuffer = fs.readFileSync('prize.json');
     const dataJSON = JSON.parse(dataBuffer.toString()).prizes
 
-    let id = req.params['id'];
-    let year = req.params['annee'];
-    let cate = req.params['categorie'];
+    let {id, year, category} = req.body
 
-    const filteredPrizeID = dataJSON.findIndex(prize => prize.year == year && prize.category == cate)
+    const filteredPrizeID = dataJSON.findIndex(prize => prize.year == year && prize.category == category)
 
     if (filteredPrizeID == -1)
         return JSON.stringify({code: 404, message: "cannot find given year or category"})

@@ -136,30 +136,22 @@ module.exports = app => {
      *              description: Bad request
      */
 
-    router.delete("/:id/:annee/:categorie", laureates.delete);
+    router.delete("/", laureates.delete);
     /**
      * @swagger
-     * /laureates/{id}/{annee}/{categorie}:
+     * /laureates:
      *   delete:
      *      description: Used to delete laureat
      *      tags:
      *          - Delete a laureat
-     *      parameters:
-     *          - in: path
-     *            name: id
-     *            schema:
-     *              type: integer
-     *            required: true
-     *          - in: path
-     *            name: annee
-     *            schema:
-     *              type:  integer
-     *            required: true
-     *          - in: path
-     *            name: categorie
-     *            schema:
-     *              type: string
-     *            required: true
+     *      requestBody:
+     *         content:
+     *            application/json:
+     *               schema:
+     *                  type: object
+     *               examples:
+     *                  new_laureat:
+     *                     value: {"id": "id", "year": "annee", "category": "categorie"}
      *      responses:
      *          '200':
      *              description: Succes
@@ -169,35 +161,22 @@ module.exports = app => {
      *              description: Bad request
      */
 
-    router.put("/:id/:annee/:categorie", laureates.update);
+    router.put("/", laureates.update);
     /**
      * @swagger
-     * /laureates/{id}/{annee}/{categorie}:
+     * /laureates:
      *   put:
      *      description: Used to update a motivation from a specific laureat
      *      tags:
      *          - Update a laureat
-     *      parameters:
-     *          - in: path
-     *            name: id
-     *            schema:
-     *              type: integer
-     *            required: true
-     *          - in: path
-     *            name: annee
-     *            schema:
-     *              type:  integer
-     *            required: true
-     *          - in: path
-     *            name: categorie
-     *            schema:
-     *              type: string
-     *            required: true
      *      requestBody:
      *         content:
-     *              motivation:
-     *                  schema:
-     *                   type: string
+     *            application/json:
+     *               schema:
+     *                  type: object
+     *               examples:
+     *                  new_laureat:
+     *                     value: {"id": "id", "year": "annee", "category": "categorie", "motivation": "nouvelle motivation"}
      *      responses:
      *          '200':
      *              description: Succes
