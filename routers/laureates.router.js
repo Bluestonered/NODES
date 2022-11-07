@@ -208,7 +208,7 @@ module.exports = app => {
      */
 
     router.post("/:annee/:categorie", laureates.add);
-        /**
+    /**
      * @swagger
      * /laureates/{annee}/{categorie}:
      *   post:
