@@ -331,26 +331,29 @@ function addlaureate(req) {
     const dataBuffer = fs.readFileSync('prize.json');
     const dataJSON = JSON.parse(dataBuffer.toString()).prizes
     const laureates = getLaureates()
+    console.log(req.body);
 
     let id = laureates.length;
 
     const { firstname, surname, motivation, year, category} = req.body;
 
     const target_prize_index = dataJSON.findIndex(prize => prize.year == year && prize.category == category);
-    if (!target_prize_index){
+    console.log(dataJSON[target_prize_index]);
+    if (target_prize_index == null){
         return {code:404, message:"ce prix n'existe pas"}
     }
     let laureat = findLaureateByName(firstname,surname);
+    console.log(laureat);
     let id_l;
-    if (laureat){
+    if (laureat != null){
         id_l = laureat.id;
     }else {
         id_l = getMaxId() + 1;
     }
-    dataJSON[target_prize_index].laureates.push({id, firstname, surname, motivation});
+    dataJSON[target_prize_index].laureates.push({id:id_l, firstname, surname, motivation});
 
     fs.writeFileSync('prize.json', JSON.stringify({prizes: dataJSON}, null, 4))
-    return JSON.stringify({code: 200, message: "successfully added laureate with id:"+id})
+    return JSON.stringify({code: 200, message: "successfully added laureate with id:"+id_l})
 }
 exports.add_view = (req,res) => {
     let categories = cat_controller.getCategories();
