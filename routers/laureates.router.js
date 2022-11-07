@@ -218,11 +218,17 @@ module.exports = app => {
     router.get("/:id", laureates.findId);
     /**
      * @swagger
-     * /laureates/:id:
+     * /laureates/{id}:
      *   get:
      *      description: Used to get Find number laureates per year
      *      tags:
      *          - Find laureates with ID
+     *      parameters:
+     *          - in: path
+     *            name: id
+     *            schema:
+     *              type: integer
+     *            required: true
      *      responses:
      *          '200':
      *              description: Succes

@@ -88,6 +88,7 @@ exports.findId = (req, res) => {
 
     //récupérer id des laureat
     const id = req.params.id
+    console.log(id);
     //parcourir les laureat avec id
     const dataJSON = getLaureates();
 
