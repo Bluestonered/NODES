@@ -4,8 +4,6 @@ module.exports = app => {
     const laureates = require('../controllers/laureates.controllers');
     const router = express.Router();
    
-
-    router.get("/", laureates.findAll);
     /**
      * @swagger
      * /laureates/:
@@ -21,6 +19,24 @@ module.exports = app => {
      *          '400':
      *              description: Bad request
      */ 
+    router.get("/", laureates.findAll);
+
+
+    /**
+     * @swagger
+     * /laureates/nbr:
+     *   get:
+     *      description: Get number of laureates
+     *      tags:
+     *          - Number of laureates
+     *      responses:
+     *          '200':
+     *              description: Succes
+     *          '500':
+     *              description: Internal server error
+     *          '400':
+     *              description: Bad request
+     */
 
     router.get("/nbr", laureates.findNumber);
     /**
@@ -56,8 +72,8 @@ module.exports = app => {
      *          '400':
      *              description: Bad request
      */
-    
     router.get("/page/:page", laureates.findPage);
+
     /**
      * @swagger
      * /laureates/page/{page}:
@@ -113,7 +129,6 @@ module.exports = app => {
      *          '400':
      *              description: Bad request
      */
-
     router.get("/year/sort/:signe", laureates.orderlaureate);
     /**
      * @swagger
@@ -175,7 +190,7 @@ module.exports = app => {
      * @swagger
      * /laureates/{id}/{annee}/{categorie}:
      *   put:
-     *      description: Used to update laureat (not working on swagger -> issues from the body)
+     *      description: Used to update a motivation from a specific laureat
      *      tags:
      *          - Update a laureat
      *      parameters:
@@ -194,11 +209,14 @@ module.exports = app => {
      *            schema:
      *              type: string
      *            required: true
-     *          - in: body
-     *            name: motivation
-     *            schema:
-     *              type: string
-     *            required: true
+     *      requestBody:
+     *         content:
+     *            application/json:
+     *               schema:
+     *                  type: object
+     *               examples:
+     *                  new_motivation:
+     *                     value: {"motivation": "nouvelle motivation"}
      *      responses:
      *          '200':
      *              description: Succes
@@ -213,7 +231,7 @@ module.exports = app => {
      * @swagger
      * /laureates/{annee}/{categorie}:
      *   post:
-     *      description: Used to update laureat (not working on swagger -> issues from the body)
+     *      description: Used to add a laureate
      *      tags:
      *          - add new laureat
      *      parameters:
@@ -227,21 +245,14 @@ module.exports = app => {
      *            schema:
      *              type: string
      *            required: true
-     *          - in: body
-     *            name: firstname
-     *            schema:
-     *              type: string
-     *            required: true
-     *          - in: body
-     *            name: surname
-     *            schema:
-     *              type: string
-     *            required: false
-     *          - in: body
-     *            name: motivation
-     *            schema:
-     *              type: string
-     *            required: false
+     *      requestBody:
+     *         content:
+     *            application/json:
+     *               schema:
+     *                  type: object
+     *               examples:
+     *                  new_laureat:
+     *                     value: {"firstname": "nouveau prénom", "surname": "nouveau surnom", "motivation": "nouvelle motivation"}
      *      responses:
      *          '200':
      *              description: Succes
@@ -258,17 +269,11 @@ module.exports = app => {
     router.get("/:id", laureates.findId);
     /**
      * @swagger
-     * /laureates/{id}:
+     * /laureates/:id:
      *   get:
      *      description: Used to get Find number laureates per year
      *      tags:
      *          - Find laureates with ID
-     *      parameters:
-     *          - in: path
-     *            name: id
-     *            schema:
-     *              type: integer
-     *            required: true
      *      responses:
      *          '200':
      *              description: Succes

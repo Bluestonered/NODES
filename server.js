@@ -1,3 +1,8 @@
+//////////////////////////////////////////////////////////////
+//                      DM API_REST                         //
+// Hugo FOULON, Lilian SCHOTT, Samson DUPUY, Arnaud CHEVALME//
+//////////////////////////////////////////////////////////////
+
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");

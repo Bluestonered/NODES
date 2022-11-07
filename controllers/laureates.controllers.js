@@ -88,7 +88,6 @@ exports.findId = (req, res) => {
   const id = req.params.id
   //parcourir les laureat avec id
   const dataJSON = getLaureates();
-  console.log(id);
 
   const idObject = dataJSON.find(function (obj) {
     return obj.id == id
@@ -270,12 +269,15 @@ function updateLaureate(req) {
   const year = req.params['annee'];
   const cate = req.params['categorie'];
   const motivation = req.body.motivation;
+  console.log(motivation);
+  console.log(req);
   const filteredPrizeID = dataJSON.findIndex(prize => prize.year == year && prize.category == cate)
 
   if (filteredPrizeID == -1) 
     return JSON.stringify({code: 404, message: "cannot find given year or category"})
 
   const filteredLaureateID = dataJSON[filteredPrizeID].laureates.findIndex(l => l.id == id)
+
   if (filteredLaureateID == -1) 
     return JSON.stringify({code: 404, message: "cannot find given laureate for given category in given year"})
 
@@ -341,6 +343,7 @@ function addlaureate(req) {
 
   fs.writeFileSync('prize.json', JSON.stringify({prizes: dataJSON}, null, 2))
   return JSON.stringify({code: 200, message: "successfully added laureate with id:"+id})
+
 }
 
 exports.add = (req, res) => {
