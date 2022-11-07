@@ -4,6 +4,8 @@ module.exports = app => {
     const prizes = require('../controllers/prizes.controllers');
     const router = express.Router();
    
+    
+    router.get("/", prizes.findAll);
     /**
      * @swagger
      * /prizes/:
@@ -19,7 +21,6 @@ module.exports = app => {
      *          '400':
      *              description: Bad request
      */
-    router.get("/", prizes.findAll);
 
     app.use('/prizes', router);
 };

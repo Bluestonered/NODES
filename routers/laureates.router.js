@@ -4,6 +4,8 @@ module.exports = app => {
     const laureates = require('../controllers/laureates.controllers');
     const router = express.Router();
    
+
+    router.get("/", laureates.findAll);
     /**
      * @swagger
      * /laureates/:
@@ -19,24 +21,6 @@ module.exports = app => {
      *          '400':
      *              description: Bad request
      */ 
-    router.get("/", laureates.findAll);
-
-
-    /**
-     * @swagger
-     * /laureates/nbr:
-     *   get:
-     *      description: Get number of laureates
-     *      tags:
-     *          - Number of laureates
-     *      responses:
-     *          '200':
-     *              description: Succes
-     *          '500':
-     *              description: Internal server error
-     *          '400':
-     *              description: Bad request
-     */
 
     router.get("/nbr", laureates.findNumber);
     /**
@@ -54,6 +38,7 @@ module.exports = app => {
      *          '400':
      *              description: Bad request
      */
+    
     router.get("/multiple", laureates.findDouble);
     /**
      * @swagger
@@ -71,8 +56,8 @@ module.exports = app => {
      *          '400':
      *              description: Bad request
      */
+    
     router.get("/page/:page", laureates.findPage);
-
     /**
      * @swagger
      * /laureates/page/{page}:
@@ -128,6 +113,7 @@ module.exports = app => {
      *          '400':
      *              description: Bad request
      */
+
     router.get("/year/sort/:signe", laureates.orderlaureate);
     /**
      * @swagger
@@ -272,11 +258,17 @@ module.exports = app => {
     router.get("/:id", laureates.findId);
     /**
      * @swagger
-     * /laureates/:id:
+     * /laureates/{id}:
      *   get:
      *      description: Used to get Find number laureates per year
      *      tags:
      *          - Find laureates with ID
+     *      parameters:
+     *          - in: path
+     *            name: id
+     *            schema:
+     *              type: integer
+     *            required: true
      *      responses:
      *          '200':
      *              description: Succes
