@@ -10,13 +10,12 @@ module.exports = app => {
         definition: {
             openapi: "3.0.0",
             info: {
-                title: "API Nobel Prize",
+                title: "API Nobel Prize Made By: Hugo Foulon, Arnaud Chevalm, Samson Dupuy, Lilian Schott",
                 version: "1.0.0",
                 description:
-                    "API Nobel Prize",
+                    "API Nobel Prize" ,
                 contact: {
                     name: "API Support",
-    
                 },
                 servers: ["http://localhost:3000"],
             },

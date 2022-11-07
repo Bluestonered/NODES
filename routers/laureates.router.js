@@ -54,6 +54,7 @@ module.exports = app => {
      *          '400':
      *              description: Bad request
      */
+
     router.get("/multiple", laureates.findDouble);
     /**
      * @swagger
@@ -189,7 +190,7 @@ module.exports = app => {
      * @swagger
      * /laureates/{id}/{annee}/{categorie}:
      *   put:
-     *      description: Used to update laureat
+     *      description: Used to update a motivation from a specific laureat
      *      tags:
      *          - Update a laureat
      *      parameters:
@@ -227,7 +228,7 @@ module.exports = app => {
      * @swagger
      * /laureates/{annee}/{categorie}:
      *   post:
-     *      description: Used to update laureat
+     *      description: Used to add a laureate
      *      tags:
      *          - add new laureat
      *      parameters:
@@ -241,21 +242,14 @@ module.exports = app => {
      *            schema:
      *              type: string
      *            required: true
-     *          - in: header
-     *            name: firstname
-     *            schema:
-     *              type: string
-     *            required: true
-     *          - in: header
-     *            name: surname
-     *            schema:
-     *              type: string
-     *            required: false
-     *          - in: header
-     *            name: motivation
-     *            schema:
-     *              type: string
-     *            required: false
+     *      requestBody:
+     *         content:
+     *            application/json:
+     *               schema:
+     *                  type: object
+     *               examples:
+     *                  new_laureat:
+     *                     value: {"firstname": "nouveau prénom", "surname": "nouveau surnom", "motivation": "nouvelle motivation"}
      *      responses:
      *          '200':
      *              description: Succes
