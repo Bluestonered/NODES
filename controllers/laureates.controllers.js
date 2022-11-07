@@ -343,6 +343,7 @@ function addlaureate(req) {
 
   fs.writeFileSync('prize.json', JSON.stringify({prizes: dataJSON}, null, 2))
   return JSON.stringify({code: 200, message: "successfully added laureate with id:"+id})
+
 }
 
 exports.add = (req, res) => {
