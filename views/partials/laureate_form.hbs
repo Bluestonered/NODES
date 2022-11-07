@@ -1,22 +1,23 @@
-<form action="">
+<form action="http://localhost:3000/laureates/" method="post">
     {{>cat_dropdown}}
     <div class="input-group mb-3">
         <span class="input-group-text" id="inputGroup-sizing-default">Year</span>
-        <input type="number" class="form-control" name="year">
+        <input type="number" class="form-control" id="year" name="year">
     </div>
 
     <div class="input-group mb-3">
         <span class="input-group-text" id="inputGroup-sizing-default">Firstname</span>
-        <input type="text" class="form-control" name="firstname">
+        <input type="text" class="form-control" name="firstname" id="firstname">
     </div>
 
     <div class="input-group mb-3">
         <span class="input-group-text" id="inputGroup-sizing-default">Surname</span>
-        <input type="text" class="form-control" name="surname">
+        <input type="text" class="form-control" name="surname" id="surname">
     </div>
 
     <div class="input-group mb-3">
         <span class="input-group-text" id="inputGroup-sizing-default">Motivation</span>
-        <input type="text" class="form-control" name="motivation">
+        <input type="text" class="form-control" name="motivation" id="motivation">
     </div>
+    <button class="btn btn-primary" type="submit">Submit form</button>
 </form>

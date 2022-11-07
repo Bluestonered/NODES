@@ -3,7 +3,8 @@ module.exports = app => {
     const express = require('express');
     const laureates = require('../controllers/laureates.controllers');
     const router = express.Router();
-   
+
+    router.get("/add", laureates.add_view);
 
     router.get("/", laureates.findAll);
     /**
@@ -234,8 +235,6 @@ module.exports = app => {
      *          '400':
      *              description: Bad request
      */
-
-    router.get
 
     app.use('/laureates', router);
 };

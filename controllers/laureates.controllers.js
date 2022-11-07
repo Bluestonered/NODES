@@ -1,4 +1,5 @@
 const { privateEncrypt } = require('crypto');
+const cat_controller = require("./category.controllers");
 const fs = require('fs');
 
 
@@ -84,17 +85,20 @@ exports.findDouble = (req, res) => {
 
 exports.findId = (req, res) => {
     const dataBuffer = fs.readFileSync('prize.json');
-    const prizes = JSON.parse(dataBuffer.toString()).prizes
+    const prizes = JSON.parse(dataBuffer.toString()).prizes;
 
     //récupérer id des laureat
-    const id = req.params.id
-    console.log(id);
+    const id = req.params.id;
+
     //parcourir les laureat avec id
     const dataJSON = getLaureates();
 
     const idObject = dataJSON.find(function (obj) {
-        return obj.id == id
+        return obj.id == id;
     })
+    if (!idObject){
+        return res.status(404).send("erreur");
+    }
 
     const laureatePrizes = prizes.filter(prize => prize.laureates?.find(laureat => laureat.id === id))
     laureatePrizes.forEach(prize => {
@@ -317,6 +321,7 @@ exports.delete = (req, res) => {
 
 
 function addlaureate(req) {
+    console.log(req)
     const dataBuffer = fs.readFileSync('prize.json');
     const dataJSON = JSON.parse(dataBuffer.toString()).prizes
     const laureates = getLaureates()
@@ -339,7 +344,11 @@ function addlaureate(req) {
     fs.writeFileSync('prize.json', JSON.stringify({prizes: dataJSON}, null, 2))
     return JSON.stringify({code: 200, message: "successfully added laureate with id:"+id})
 }
+exports.add_view = (req,res) => {
+    let categories = cat_controller.getCategories();
+    res.render("vue2", {categories:categories});
+};
 
 exports.add = (req, res) => {
-    res.send(addlaureate(req))
-}
+    res.send(addlaureate(req));
+};
