@@ -6,6 +6,9 @@ const hbengine = require("express-handlebars");
 const port = 3000;
 const app = express();
 
+app.use(express.urlencoded({
+    extended: true
+}));
 app.use(express.json());
 
 app.engine("hbs", hbengine.engine({
