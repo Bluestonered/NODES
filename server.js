@@ -1,18 +1,20 @@
-///////////////////////////////////////////////////////////////
-//                      DM API_REST                          //
-// Hugo FOULON, Lilian SCHOTT, Samson DUPUY, Arnaud CHEVALME //
-///////////////////////////////////////////////////////////////
-
 const express = require("express");
+const hbengine = require("express-handlebars");
+const port = 3000;
 const app = express();
-const bodyParser = require("body-parser");
 
-app.use(bodyParser.json());
+app.use(express.json());
+
+app.engine("hbs", hbengine.engine({
+    defaultLayout:"main",
+    extname:".hbs"
+}));
+
+app.set("view engine", "hbs");
 
 require("./routers/laureates.router")(app);
 require("./routers/prizes.router")(app);
 require("./routers/category.router")(app);
 require("./routers/swagger.router")(app);
 
-
-app.listen(3000);
+app.listen(port);
