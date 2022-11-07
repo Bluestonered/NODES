@@ -4,19 +4,13 @@ module.exports = app => {
     const laureates = require('../controllers/laureates.controllers');
     const router = express.Router();
    
-    
-    router.get("/", laureates.findAll);
     /**
      * @swagger
      * /laureates/:
      *   get:
      *      description: Used to get all laureates
      *      tags:
-     *          - id,
-     *            firstname,
-     *            surname,
-     *            motivation,
-     *            share
+     *          - Get all laureates
      *      responses:
      *          '200':
      *              description: Succes
@@ -24,17 +18,17 @@ module.exports = app => {
      *              description: Internal server error
      *          '400':
      *              description: Bad request
-     */
+     */ 
+    router.get("/", laureates.findAll);
 
 
-    router.get("/nbr", laureates.findNumber);
     /**
      * @swagger
      * /laureates/nbr:
      *   get:
      *      description: Get number of laureates
      *      tags:
-     *          - number
+     *          - Number of laureates
      *      responses:
      *          '200':
      *              description: Succes
@@ -44,18 +38,31 @@ module.exports = app => {
      *              description: Bad request
      */
 
-
+    router.get("/nbr", laureates.findNumber);
+    /**
+     * @swagger
+     * /laureates/nbr:
+     *   get:
+     *      description: Used to get number of laureates
+     *      tags:
+     *          - Number of laureates
+     *      responses:
+     *          '200':
+     *              description: Succes
+     *          '500':
+     *              description: Internal server error
+     *          '400':
+     *              description: Bad request
+     */
     router.get("/multiple", laureates.findDouble);
     /**
      * @swagger
      * /laureates/multiple:
+     *
      *   get:
      *      description: Used to get all people that have multiple laureates
      *      tags:
-     *          - id,
-     *            firstname,
-     *            surname,
-     *            number
+     *          - Get multiple laureate people
      *      responses:
      *          '200':
      *              description: Succes
@@ -64,19 +71,15 @@ module.exports = app => {
      *          '400':
      *              description: Bad request
      */
-    
-
     router.get("/page/:page", laureates.findPage);
+
     /**
      * @swagger
      * /laureates/page/{page}:
      *   get:
      *      description: Used to get a page of laureat
      *      tags:
-     *          - id,
-     *            firstname,
-     *            surname,
-     *            number
+     *          - page
      *      parameters:
      *          - in: path
      *            name: page
@@ -99,10 +102,7 @@ module.exports = app => {
      *   get:
      *      description: Used to get all years and the number of laureate given in that year
      *      tags:
-     *          - id,
-     *            firstname,
-     *            surname,
-     *            number
+     *          - Laureates by year
      *      responses:
      *          '200':
      *              description: Succes
@@ -119,10 +119,7 @@ module.exports = app => {
      *   get:
      *      description: Used to get all years that don't have laureate
      *      tags:
-     *          - id,
-     *            firstname,
-     *            surname,
-     *            number
+     *          - Year with no laureate
      *      responses:
      *          '200':
      *              description: Succes
@@ -131,7 +128,6 @@ module.exports = app => {
      *          '400':
      *              description: Bad request
      */
-
     router.get("/year/sort/:signe", laureates.orderlaureate);
     /**
      * @swagger
@@ -139,10 +135,7 @@ module.exports = app => {
      *   get:
      *      description: Used to order year by they number of laureate (- for asc and + for desc)
      *      tags:
-     *          - id,
-     *            firstname,
-     *            surname,
-     *            number
+     *          - Sort year
      *      parameters:
      *          - in: path
      *            name: signe
@@ -158,17 +151,14 @@ module.exports = app => {
      *              description: Bad request
      */
 
-    router.get("/supprimer/:id/:annee/:categorie", laureates.delete);
+    router.delete("/:id/:annee/:categorie", laureates.delete);
     /**
      * @swagger
-     * /laureates/supprimer/{id]/{annee}/{categorie}:
-     *   get:
-     *      description: Used to delete a laureate from a specific year, a specific id and  a specific categorie
+     * /laureates/{id}/{annee}/{categorie}:
+     *   delete:
+     *      description: Used to delete laureat
      *      tags:
-     *          - id,
-     *            firstname,
-     *            surname,
-     *            number
+     *          - Delete a laureat
      *      parameters:
      *          - in: path
      *            name: id
@@ -176,9 +166,9 @@ module.exports = app => {
      *              type: integer
      *            required: true
      *          - in: path
-     *            name: anne
+     *            name: annee
      *            schema:
-     *              type: integer
+     *              type:  integer
      *            required: true
      *          - in: path
      *            name: categorie
@@ -193,14 +183,116 @@ module.exports = app => {
      *          '400':
      *              description: Bad request
      */
-    
 
-    router.get("/supprimer/:id/:annee/:categorie", laureates.add);
+    router.put("/:id/:annee/:categorie", laureates.update);
+    /**
+     * @swagger
+     * /laureates/{id}/{annee}/{categorie}:
+     *   post:
+     *      description: Used to update laureat
+     *      tags:
+     *          - Update a laureat
+     *      parameters:
+     *          - in: path
+     *            name: id
+     *            schema:
+     *              type: integer
+     *            required: true
+     *          - in: path
+     *            name: annee
+     *            schema:
+     *              type:  integer
+     *            required: true
+     *          - in: path
+     *            name: categorie
+     *            schema:
+     *              type: string
+     *      requestBody:
+     *         required: true
+     *         content:
+     *              application/x-www-form-urlencoded:
+     *              schema:
+     *                   type: object
+     *              properties:
+     *                   name: truc
+     *                   type: string
+     *                   fav_number: truc
+     *                   type: integer
+     *              required:
+     *                   - name
+     *                   - email
+     *      responses:
+     *          '200':
+     *              description: Succes
+     *          '500':
+     *              description: Internal server error
+     *          '400':
+     *              description: Bad request
+     */
+
+    router.post("/:annee/:categorie", laureates.add);
+        /**
+     * @swagger
+     * /laureates/{annee}/{categorie}:
+     *   post:
+     *      description: Used to update laureat
+     *      tags:
+     *          - add new laureat
+     *      parameters:
+     *          - in: path
+     *            name: annee
+     *            schema:
+     *              type:  integer
+     *            required: true
+     *          - in: path
+     *            name: categorie
+     *            schema:
+     *              type: string
+     *            required: true
+     *          - in: header
+     *            name: firstname
+     *            schema:
+     *              type: string
+     *            required: true
+     *          - in: header
+     *            name: surname
+     *            schema:
+     *              type: string
+     *            required: false
+     *          - in: header
+     *            name: motivation
+     *            schema:
+     *              type: string
+     *            required: false
+     *      responses:
+     *          '200':
+     *              description: Succes
+     *          '500':
+     *              description: Internal server error
+     *          '400':
+     *              description: Bad request
+     */
 
     //ne rien mettre en dessous par ce que l'id fais n'importe quoi
     //router.get("/:id", laureates.findId);//NOTE
 
-    router.get("/:id", laureates.updateMotivation);
+    
+    router.get("/:id", laureates.findId);
+    /**
+     * @swagger
+     * /laureates/:id:
+     *   post:
+     *      description: Used to get Find number laureates per year
+     *      tags:
+     *          - Find laureates with ID
+     *      responses:
+     *          '200':
+     *              description: Succes
+     *          '500':
+     *              description: Internal server error
+     *          '400':
+     *              description: Bad request
+     */
 
     app.use('/laureates', router);
 };
