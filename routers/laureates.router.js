@@ -85,7 +85,7 @@ module.exports = app => {
      * @swagger
      * /laureates/year/:
      *   get:
-     *      description: Used to get all years and the number of laureate given in that year
+     *      description: Used to get number of laureates for each year
      *      tags:
      *          - Laureates by year
      *      responses:
@@ -118,7 +118,7 @@ module.exports = app => {
      * @swagger
      * /laureates/year/sort/{signe}:
      *   get:
-     *      description: Used to order year by they number of laureate (- for asc and + for desc)
+     *      description: Used to order year by their number of laureate (- for asc and + for desc)
      *      tags:
      *          - Sort year
      *      parameters:
@@ -141,7 +141,7 @@ module.exports = app => {
      * @swagger
      * /laureates:
      *   delete:
-     *      description: Used to delete laureat
+     *      description: Used to delete laureat by the id, year and category
      *      tags:
      *          - Delete a laureat
      *      requestBody:
@@ -166,7 +166,7 @@ module.exports = app => {
      * @swagger
      * /laureates:
      *   put:
-     *      description: Used to update a motivation from a specific laureat
+     *      description: Used to update the motivation from a laureate by the id, year and category
      *      tags:
      *          - Update a laureat
      *      requestBody:
@@ -191,7 +191,7 @@ module.exports = app => {
      * @swagger
      * /laureates:
      *   post:
-     *      description: Used to add a laureate
+     *      description: Used to add a laureate with a specific year and category
      *      tags:
      *          - add new laureat
      *      requestBody:
@@ -211,16 +211,13 @@ module.exports = app => {
      *              description: Bad request
      */
 
-    //ne rien mettre en dessous par ce que l'id fais n'importe quoi
-    //router.get("/:id", laureates.findId);//NOTE
-
-    
+    //ne rien mettre en dessous par ce que l'id fais n'importe quoi    
     router.get("/:id", laureates.findId);
     /**
      * @swagger
      * /laureates/{id}:
      *   get:
-     *      description: Used to get Find number laureates per year
+     *      description: Used to get a laureate by the id
      *      tags:
      *          - Find laureates with ID
      *      parameters:

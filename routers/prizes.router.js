@@ -10,7 +10,7 @@ module.exports = app => {
      * @swagger
      * /prizes/:
      *   get:
-     *      description: Used to get Find number laureates per year
+     *      description: Used to find all prizes
      *      tags:
      *          - Find all prizes
      *      responses:

@@ -12,7 +12,7 @@ module.exports = app => {
      *   get:
      *      description: Used to get all categories
      *      tags:
-     *          - Find all category
+     *          - Find all categories
      *      responses:
      *          '200':
      *              description: Succes
@@ -28,7 +28,7 @@ module.exports = app => {
      * @swagger
      * /category/count:
      *   get:
-     *      description: Used to find number laureates per year
+     *      description: Used to find number laureates per categories
      *      tags:
      *          - Count number laureates by categories
      *      responses:
