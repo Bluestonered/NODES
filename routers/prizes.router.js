@@ -5,14 +5,14 @@ module.exports = app => {
     const router = express.Router();
    
 
-    router.get("/", prizes.findAll);
+    router.get("/count/", prizes.findAll);
     /**
      * @swagger
-     * /prizes/:
+     * /prizes/count/:
      *   get:
-     *      description: Used to find all prizes
+     *      description: Count to find all prizes
      *      tags:
-     *          - Find all prizes
+     *          - Count all prizes
      *      responses:
      *          '200':
      *              description: Succes
