@@ -8,6 +8,7 @@
           "id": "1002",
           "firstname": "Benjamin",
           "surname": "List",
+<<<<<<< HEAD
           "share": "2",
           "motivation": "il est beau sa mère"
         },
@@ -10712,6 +10713,8 @@
           "firstname": "Benjamin",
           "surname": "List",
           "motivation": "\"for the development of asymmetric organocatalysis\"",
+=======
+>>>>>>> 1bc3df716140aeb5c7a1234c43c301a1b30c47f4
           "share": "2"
         },
         {

@@ -1,5 +1,26 @@
 const fs = require('fs');
 
+exports.findLaureates = (req, res) => {
+  let cat = req.query.category;
+  if (!cat){
+    cat = "chemistry";
+  }
+
+  const dataBuffer = fs.readFileSync('prize.json');
+  const dataJSON = JSON.parse(dataBuffer.toString()).prizes
+  let laureates_set = new Set();
+
+  dataJSON.filter(prize => {
+    if (prize.category == cat && "laureates" in prize){
+      prize.laureates.forEach(laureate => {
+        laureate.year = prize.year;
+        laureates_set.add(laureate);
+      });
+    }
+  });
+  res.status(200).render("home", {laureates:Array.from(laureates_set), categories:getCategories(), category:cat})
+}
+
 exports.findAll = (req, res) => {
   res.send(getCategories())
 }
