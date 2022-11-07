@@ -13,7 +13,7 @@ module.exports = app => {
                 title: "API Nobel Prize Made By: Hugo Foulon, Arnaud Chevalm, Samson Dupuy, Lilian Schott",
                 version: "1.0.0",
                 description:
-                    "API Nobel Prize" ,
+                    "Les views: http://localhost:3000/laureates/add or http://localhost:3000/category/laureates",
                 contact: {
                     name: "API Support",
                 },
